@@ -12,6 +12,22 @@ namespace NetherTear.MonoGame.EventHandlers
     public class UserInputHandler
     {
         #region Private Variables
+        private List<Keys> mappedKeys;
+        private readonly Dictionary<Keys, UserInput> KeysToUserInputMap =
+            new Dictionary<Keys, UserInput>()
+        {
+            {Keys.A, UserInput.A}, {Keys.B, UserInput.B}, {Keys.C, UserInput.C},
+            {Keys.D, UserInput.D}, {Keys.E, UserInput.E}, {Keys.F, UserInput.F},
+            {Keys.G, UserInput.G}, {Keys.H, UserInput.H}, {Keys.I, UserInput.I},
+            {Keys.J, UserInput.J}, {Keys.K, UserInput.K}, {Keys.L, UserInput.L},
+            {Keys.M, UserInput.M}, {Keys.O, UserInput.O}, {Keys.P, UserInput.P},
+            {Keys.Q, UserInput.Q}, {Keys.R, UserInput.R}, {Keys.S, UserInput.S},
+            {Keys.T, UserInput.T}, {Keys.U, UserInput.U}, {Keys.V, UserInput.V},
+            {Keys.W, UserInput.W}, {Keys.X, UserInput.X}, {Keys.Y, UserInput.Y},
+            {Keys.Z, UserInput.Z}, 
+            {Keys.Left, UserInput.LeftArrow}, {Keys.Right, UserInput.RightArrow},
+            {Keys.Up, UserInput.UpArrow}, {Keys.Down, UserInput.DownArrow}
+        };
         #endregion
 
         #region Public Variables
@@ -22,99 +38,56 @@ namespace NetherTear.MonoGame.EventHandlers
         public UserInputHandler(ControllerBase controller)
         {
             this.Controller = controller;
+            this.mappedKeys = GetMappedKeys();
         }
         #endregion
 
         #region Public Methods
+        
+        
         public void HandleUserInput()
         {
             KeyboardState kbState = Keyboard.GetState();
             GamePadState gpState = GamePad.GetState(PlayerIndex.One);
 
-            var keysPressed = kbState.GetPressedKeys();
-            
-            // if no keys are pressed we should still call HandleUser input to stop
-            // the player from initiating/continuing any actions that require sustained
-            // user input
-            if (!keysPressed.Any())
+            var keysDown = new List<UserInput>();
+            var keysUp = new List<UserInput>();
+
+            foreach (var key in mappedKeys)
             {
-                Controller.HandleUserInput(UserInput.Null);
-            }
-            foreach (var key in keysPressed)
-            {
-                Controller.HandleUserInput(ConvertToUserInput(key));
+                if (kbState.IsKeyDown(key))
+                {
+                    keysDown.Add(KeysToUserInputMap[key]);
+                }
+                else
+                {
+                    keysUp.Add(KeysToUserInputMap[key]);
+                }
+                Controller.HandleUserInput(keysUp, keysDown);
             }
         }
         #endregion
 
         #region Private Methods
-        private UserInput ConvertToUserInput(Keys key)
+        /// <summary>
+        /// Gets the keys that are currently mapped to actions in the game.
+        /// </summary>
+        /// <returns>A list of Keys that are currently mapped in the game.
+        /// </returns>
+        private List<Keys> GetMappedKeys()
         {
-            switch (key)
+            var mappedKeys = new List<Keys>();
+            var mappedUserInput = Controller.GetMappedUserInput();
+
+            foreach (var kvp in KeysToUserInputMap)
             {
-                case Keys.Q:
-                    return UserInput.Q;
-                case Keys.W:
-                    return UserInput.W;
-                case Keys.E:
-                    return UserInput.E;
-                case Keys.R:
-                    return UserInput.R;
-                case Keys.T:
-                    return UserInput.T;
-                case Keys.Y:
-                    return UserInput.Y;
-                case Keys.U:
-                    return UserInput.U;
-                case Keys.I:
-                    return UserInput.I;
-                case Keys.O:
-                    return UserInput.O;
-                case Keys.P:
-                    return UserInput.P;
-                case Keys.A:
-                    return UserInput.A;
-                case Keys.S:
-                    return UserInput.S;
-                case Keys.D:
-                    return UserInput.D;
-                case Keys.F:
-                    return UserInput.F;
-                case Keys.G:
-                    return UserInput.G;
-                case Keys.H:
-                    return UserInput.H;
-                case Keys.J:
-                    return UserInput.J;
-                case Keys.K:
-                    return UserInput.K;
-                case Keys.L:
-                    return UserInput.L;
-                case Keys.Z:
-                    return UserInput.Z;
-                case Keys.X:
-                    return UserInput.X;
-                case Keys.C:
-                    return UserInput.C;
-                case Keys.V:
-                    return UserInput.V;
-                case Keys.B:
-                    return UserInput.B;
-                case Keys.N:
-                    return UserInput.N;
-                case Keys.M:
-                    return UserInput.M;
-                case Keys.Up:
-                    return UserInput.UpArrow;
-                case Keys.Down:
-                    return UserInput.DownArrow;
-                case Keys.Left:
-                    return UserInput.LeftArrow;
-                case Keys.Right:
-                    return UserInput.RightArrow;
-                default:
-                    return UserInput.Null;
+                if (mappedUserInput.Contains(kvp.Value))
+                {
+                    mappedKeys.Add(kvp.Key);
+                }
             }
+
+            return mappedKeys;
         }
         #endregion
     }

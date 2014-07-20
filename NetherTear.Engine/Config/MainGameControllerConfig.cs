@@ -56,6 +56,11 @@ namespace NetherTear.Framework.Config
                 Config.Add(kvp.Key, kvp.Value);
             }
         }
+
+        public override List<UserInput> GetMappedUserInput()
+        {
+            return Config.Keys.ToList();
+        }
         #endregion
     }
 }

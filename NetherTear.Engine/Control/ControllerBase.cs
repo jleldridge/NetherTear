@@ -8,6 +8,7 @@ namespace NetherTear.Framework.Control
 {
     public abstract class ControllerBase
     {
-        public abstract void HandleUserInput(UserInput input);
+        public abstract void HandleUserInput(List<UserInput> inputsUp, List<UserInput> inputsDown);
+        public abstract List<UserInput> GetMappedUserInput();
     }
 }

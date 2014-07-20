@@ -11,6 +11,9 @@ namespace NetherTear.Framework.Control
     {
         #region Private Variables
         private Player player;
+        private HashSet<PlayerAction> actionsDown = new HashSet<PlayerAction>();
+        private PlayerAction lastXDirectionPressed = PlayerAction.Null;
+        private PlayerAction lastYDirectionPressed = PlayerAction.Null;
         #endregion
 
         #region Public Variables
@@ -24,37 +27,80 @@ namespace NetherTear.Framework.Control
         }
 
         #region Public Methods
-        public override void HandleUserInput(UserInput input)
+        public override void HandleUserInput(List<UserInput> inputsUp, List<UserInput> inputsDown)
         {
-            if (input == UserInput.Null)
+            foreach (var input in inputsUp)
             {
-                StopMovingPlayer();
+                var action = Config[input];
+                if (actionsDown.Contains(action))
+                {
+                    actionsDown.Remove(action);
+                    if (lastXDirectionPressed == action)
+                        lastXDirectionPressed = PlayerAction.Null;
+                    else if (lastYDirectionPressed == action)
+                        lastYDirectionPressed = PlayerAction.Null;
+                }
             }
-            else
+
+            foreach (var input in inputsDown)
             {
-                HandleUserInput(Config[input]);
+                var action = Config[input];
+                
+                if (!actionsDown.Contains(action))
+                {
+                    if (action == PlayerAction.Left || action == PlayerAction.Right)
+                        lastXDirectionPressed = action;
+                    else if (action == PlayerAction.Up || action == PlayerAction.Down)
+                        lastYDirectionPressed = action;
+
+                    actionsDown.Add(action);
+                }
+
+                if (lastXDirectionPressed == PlayerAction.Null)
+                {
+                    if (actionsDown.Contains(PlayerAction.Left))
+                        lastXDirectionPressed = PlayerAction.Left;
+                    else if (actionsDown.Contains(PlayerAction.Right))
+                        lastXDirectionPressed = PlayerAction.Right;
+                }
+                if (lastYDirectionPressed == PlayerAction.Null)
+                {
+                    if (actionsDown.Contains(PlayerAction.Up))
+                        lastYDirectionPressed = PlayerAction.Up;
+                    else if (actionsDown.Contains(PlayerAction.Down))
+                        lastYDirectionPressed = PlayerAction.Down;
+                }
             }
+
+            HandleUserInput();
+        }
+
+        public override List<UserInput> GetMappedUserInput()
+        {
+            return Config.GetMappedUserInput();
         }
         #endregion
 
         #region Private Methods
-        private void HandleUserInput(PlayerAction action)
+        private void HandleUserInput()
         {
-            switch(action)
-            {
-                case PlayerAction.Up:
-                    StartMovingPlayerUp();
-                    break;
-                case PlayerAction.Down:
-                    StartMovingPlayerDown();
-                    break;
-                case PlayerAction.Left:
-                    StartMovingPlayerLeft();
-                    break;
-                case PlayerAction.Right:
-                    StartMovingPlayerRight();
-                    break;
-            }
+            // handle X and Y movement in a way to minimize movement
+            // stopping while switching keys
+            if (lastXDirectionPressed == PlayerAction.Left)
+                StartMovingPlayerLeft();
+            else if (lastXDirectionPressed == PlayerAction.Right)
+                StartMovingPlayerRight();
+            else
+                StopMovingPlayerX();
+            if (lastYDirectionPressed == PlayerAction.Up)
+                StartMovingPlayerUp();
+            else if (lastYDirectionPressed == PlayerAction.Down)
+                StartMovingPlayerDown();
+            else
+                StopMovingPlayerY();
+
+
+            // todo: handle other player actions
         }
 
         private void StartMovingPlayerUp()
@@ -77,9 +123,13 @@ namespace NetherTear.Framework.Control
             player.XSpeed = player.MaxXSpeed;
         }
 
-        private void StopMovingPlayer()
+        private void StopMovingPlayerX()
         {
             player.XSpeed = 0;
+        }
+
+        private void StopMovingPlayerY()
+        {
             player.YSpeed = 0;
         }
         #endregion

@@ -9,6 +9,7 @@ namespace NetherTear.Framework.Config
     {
         public abstract void RestoreDefaults();
         public abstract T this[UserInput key] { get; set; }
+        public abstract List<UserInput> GetMappedUserInput();
     }
 
     public enum UserInput
