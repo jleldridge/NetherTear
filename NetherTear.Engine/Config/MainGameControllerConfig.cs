@@ -37,7 +37,10 @@ namespace NetherTear.Framework.Config
         {
             get
             {
-                return Config[key];
+                if (Config.ContainsKey(key))
+                    return Config[key];
+                else
+                    return PlayerAction.Null;
             }
             set
             {

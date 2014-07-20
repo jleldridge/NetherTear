@@ -27,7 +27,7 @@ namespace NetherTear.Framework.Control
         public override void HandleUserInput(UserInput input)
         {
             ReadyPlayerForInput();
-            if (input != UserInput.Null)
+            if (input != UserInput.Null && Config[input] != PlayerAction.Null)
             {
                 HandleUserInput(Config[input]);
             }

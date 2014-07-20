@@ -31,6 +31,9 @@ namespace NetherTear.Framework.Config
 
     public enum PlayerAction
     {
-        Up, Down, Left, Right
+        Up, Down, Left, Right,
+
+        // null
+        Null
     }
 }
