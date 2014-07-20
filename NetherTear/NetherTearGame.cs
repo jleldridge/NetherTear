@@ -49,7 +49,7 @@ namespace NetherTear.MonoGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            playerImage = Content.Load<Texture2D>(engine.Player.ImagePath);
+            playerImage = Content.Load<Texture2D>(engine.GameState.Player.ImagePath);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace NetherTear.MonoGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(playerImage, new Rectangle(engine.Player.X, engine.Player.Y, 25, 25), Color.White);
+            spriteBatch.Draw(playerImage, new Rectangle(engine.GameState.Player.X, engine.GameState.Player.Y, 25, 25), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);

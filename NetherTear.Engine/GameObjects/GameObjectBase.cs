@@ -12,15 +12,17 @@ namespace NetherTear.Framework.GameObjects
         public int Y { get; set; }
         public int XSpeed { get; set; }
         public int YSpeed { get; set; }
+        public int MaxXSpeed { get; set; }
+        public int MaxYSpeed { get; set; }
         public abstract string ImagePath { get; }
         #endregion
 
         public GameObjectBase(int x, int y)
         {
-            X = x;
-            Y = y;
-            XSpeed = 0;
-            YSpeed = 0;
+            this.X = x;
+            this.Y = y;
+            this.XSpeed = 0;
+            this.YSpeed = 0;
         }
     }
 }

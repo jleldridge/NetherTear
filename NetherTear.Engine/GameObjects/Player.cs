@@ -13,8 +13,11 @@ namespace NetherTear.Framework.GameObjects
         {
             get { return ObjectImages.PlayerImagePath; }
         }
+
         public Player(int x, int y) : base(x, y)
         {
+            this.MaxXSpeed = 5;
+            this.MaxYSpeed = 5;
         }
     }
 }

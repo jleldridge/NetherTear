@@ -12,30 +12,36 @@ namespace NetherTear.Framework.Engine
         #endregion
 
         #region Public Variables
-        public Player Player { get; set; }
+        public GameState GameState { get; set; }
         #endregion
 
         #region Constructors
         public Engine ()
         {
-            Player = new Player(50, 50);
-            Player.XSpeed = 5;
-            Player.YSpeed = 5;
+            GameState = new GameState();
+        }
+
+        // this constructor could be used to load a saved game
+        // or possibly to restore a game after pausing if the
+        // engine needs to be scrapped during that process
+        public Engine(GameState gameState)
+        {
+            this.GameState = gameState;
         }
         #endregion
 
         #region Public Methods
         public void Update()
         {
-            MovePlayer();
+            MoveObject(GameState.Player);
         }
         #endregion
 
         #region Private Methods
-        private void MovePlayer()
+        private void MoveObject(GameObjectBase obj)
         {
-            Player.X += Player.XSpeed;
-            Player.Y += Player.YSpeed;
+            obj.X += obj.XSpeed;
+            obj.Y += obj.YSpeed;
         }
         #endregion
     }
