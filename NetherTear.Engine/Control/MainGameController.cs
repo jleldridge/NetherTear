@@ -26,8 +26,11 @@ namespace NetherTear.Framework.Control
         #region Public Methods
         public override void HandleUserInput(UserInput input)
         {
-            ReadyPlayerForInput();
-            if (input != UserInput.Null && Config[input] != PlayerAction.Null)
+            if (input == UserInput.Null)
+            {
+                StopMovingPlayer();
+            }
+            else
             {
                 HandleUserInput(Config[input]);
             }
@@ -54,12 +57,6 @@ namespace NetherTear.Framework.Control
             }
         }
 
-        private void ReadyPlayerForInput()
-        {
-            player.XSpeed = 0;
-            player.YSpeed = 0;
-        }
-
         private void StartMovingPlayerUp()
         {
             player.YSpeed = player.MaxYSpeed * -1;
@@ -78,6 +75,12 @@ namespace NetherTear.Framework.Control
         private void StartMovingPlayerRight()
         {
             player.XSpeed = player.MaxXSpeed;
+        }
+
+        private void StopMovingPlayer()
+        {
+            player.XSpeed = 0;
+            player.YSpeed = 0;
         }
         #endregion
     }
