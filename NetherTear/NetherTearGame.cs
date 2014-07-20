@@ -10,6 +10,7 @@ using NetherTear.Resources;
 using NetherTear.Framework.Engine;
 using NetherTear.MonoGame.EventHandlers;
 using NetherTear.MonoGame.Renderers;
+using NetherTear.Framework.Config;
 #endregion
 
 namespace NetherTear.MonoGame
@@ -22,7 +23,7 @@ namespace NetherTear.MonoGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Engine engine;
-        GameRenderer renderer = new GameRenderer();
+        GameRenderer renderer;
         UserInputHandler input;
         Dictionary<string, Texture2D> textures = new Dictionary<string,Texture2D>();
 
@@ -30,6 +31,10 @@ namespace NetherTear.MonoGame
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferWidth = GraphicsConfig.DefaultWidth;
+            graphics.PreferredBackBufferHeight = GraphicsConfig.DefaultHeight;
+            renderer = new GameRenderer(graphics);
             Content.RootDirectory = "Content";
         }
 
@@ -43,8 +48,8 @@ namespace NetherTear.MonoGame
         {
             engine = new Engine();
             renderer.GameState = engine.GameState;
-            input = new UserInputHandler(engine.GameState.Controller);
-            
+            renderer.Initialize();
+            input = new UserInputHandler(engine.GameState);
             base.Initialize();
         }
 

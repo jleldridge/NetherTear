@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ControllerConfigBase.cs" />
+    <Compile Include="Config\GraphicsConfig.cs" />
     <Compile Include="Config\MainGameControllerConfig.cs" />
     <Compile Include="Control\ControllerBase.cs" />
     <Compile Include="Control\MainGameController.cs" />

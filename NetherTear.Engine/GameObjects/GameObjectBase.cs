@@ -8,19 +8,23 @@ namespace NetherTear.Framework.GameObjects
     public abstract class GameObjectBase
     {
         #region Properties
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int XSpeed { get; set; }
-        public int YSpeed { get; set; }
-        public int MaxXSpeed { get; set; }
-        public int MaxYSpeed { get; set; }
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Width { get; set; }
+        public float Height { get; set; }
+        public float XSpeed { get; set; }
+        public float YSpeed { get; set; }
+        public float MaxXSpeed { get; set; }
+        public float MaxYSpeed { get; set; }
         public abstract string ImagePath { get; }
         #endregion
 
-        public GameObjectBase(int x, int y)
+        public GameObjectBase(float x, float y, float width, float height)
         {
             this.X = x;
             this.Y = y;
+            this.Width = width;
+            this.Height = height;
             this.XSpeed = 0;
             this.YSpeed = 0;
         }

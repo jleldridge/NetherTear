@@ -6,12 +6,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using NetherTear.Framework.Engine;
 using NetherTear.Framework.GameObjects;
+using NetherTear.Framework.Config;
 
 namespace NetherTear.MonoGame.Renderers
 {
     public class GameRenderer
     {
         #region Private Variables
+        private Matrix scale;
         #endregion
 
         #region Public Variables
@@ -22,15 +24,39 @@ namespace NetherTear.MonoGame.Renderers
         #endregion
 
         #region Constructors
-        public GameRenderer()
+        public GameRenderer(GraphicsDeviceManager graphics)
         {
+            this.Graphics = graphics;
         }
         #endregion
 
         #region Public Methods
+        public void Initialize()
+        {
+            var config = GameState.GraphicsConfig;
+
+            // temporary hard coded screen resolution
+            config.Width = 1280;
+            config.Height = 720;
+
+            Graphics.PreferredBackBufferWidth = config.Width;
+            Graphics.PreferredBackBufferHeight = config.Height;
+            Graphics.ApplyChanges();
+            
+            // calculate the scale based on the default screen size and actual
+            // screen size
+            float xScale = 
+                (float)config.Width / (float)GraphicsConfig.DefaultWidth;
+            float yScale = 
+                (float)config.Height / (float)GraphicsConfig.DefaultHeight;
+
+            scale = Matrix.CreateScale(xScale, yScale, 1f);
+        }
+        
         public void Draw()
         {
-            SpriteBatch.Begin();
+            SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,
+                null, null, null, null, scale);
             DrawPlayer();
             SpriteBatch.End();
         }
@@ -40,8 +66,13 @@ namespace NetherTear.MonoGame.Renderers
         private void DrawPlayer()
         {
             Player player = GameState.Player;
-            SpriteBatch.Draw(Textures["PlayerImage"],
-                new Rectangle(player.X, player.Y, 25, 25), Color.White);
+            SpriteBatch.Draw(Textures["PlayerImage"], GetObjectPos(player), 
+                Color.White);
+        }
+
+        private Vector2 GetObjectPos(GameObjectBase obj)
+        {
+            return new Vector2(obj.X, obj.Y);
         }
         #endregion
     }

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using NetherTear.Framework.Control;
 using NetherTear.Framework.Config;
+using NetherTear.Framework.Engine;
 
 namespace NetherTear.MonoGame.EventHandlers
 {
@@ -35,9 +36,9 @@ namespace NetherTear.MonoGame.EventHandlers
         #endregion
 
         #region Constructors
-        public UserInputHandler(ControllerBase controller)
+        public UserInputHandler(GameState gameState)
         {
-            this.Controller = controller;
+            this.Controller = gameState.Controller;
             this.mappedKeys = GetMappedKeys();
         }
         #endregion

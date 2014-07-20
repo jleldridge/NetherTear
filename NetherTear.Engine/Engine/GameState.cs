@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NetherTear.Framework.GameObjects;
 using NetherTear.Framework.Control;
+using NetherTear.Framework.Config;
 
 namespace NetherTear.Framework.Engine
 {
@@ -12,6 +13,7 @@ namespace NetherTear.Framework.Engine
         #region Public Variables
         public Player Player { get; set; }
         public ControllerBase Controller { get; set; }
+        public GraphicsConfig GraphicsConfig { get; set; }
         #endregion
 
         #region Constructors
@@ -19,7 +21,8 @@ namespace NetherTear.Framework.Engine
         public GameState()
         {
             this.Player = new Player(50, 50);
-            Controller = new MainGameController(Player);
+            this.Controller = new MainGameController(Player);
+            this.GraphicsConfig = new GraphicsConfig();
         }
 
         // todo: need a constructor for loading a gamestate from a file using a
