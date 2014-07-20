@@ -2,21 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NetherTear.Framework.Control;
 
 namespace NetherTear.Framework.Config
 {
-    public abstract class ControllerConfigBase
+    public abstract class ControllerConfigBase<T> where T : IConvertible
     {
         public abstract void RestoreDefaults();
+        public abstract T this[UserInput key] { get; set; }
     }
 
-    public enum KeyboardKey
+    public enum UserInput
     {
+        // keyboard values
         Q, W, E, R, T, Y, U, I, O, P,
         A, S, D, F, G, H, J, K, L,
-        X, C, V, B, N, M,
-        UP_ARROW, DOWN_ARROW,
-        LEFT_ARROW, RIGHT_ARROW
+        Z, X, C, V, B, N, M,
+        UpArrow, DownArrow,
+        LeftArrow, RightArrow,
+        // controller values
+        ButtonA, ButtonX, ButtonY, ButtonB,
+        DpadUp, DpadDown, DpadLeft, DpadRight,
+        L1, L2, L3, R1, R2, R3,
+        LeftStick, RightStick,
+        Start, Select,
+        // null
+        Null
+    }
+
+    public enum PlayerAction
+    {
+        Up, Down, Left, Right
     }
 }

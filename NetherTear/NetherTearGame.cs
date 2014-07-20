@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using NetherTear.Resources;
 using NetherTear.Framework.Engine;
+using NetherTear.MonoGame.EventHandlers;
 #endregion
 
 namespace NetherTear.MonoGame
@@ -21,6 +22,7 @@ namespace NetherTear.MonoGame
         SpriteBatch spriteBatch;
         Texture2D playerImage;
         Engine engine;
+        UserInputHandler input;
 
         public NetherTearGame()
             : base()
@@ -38,6 +40,7 @@ namespace NetherTear.MonoGame
         protected override void Initialize()
         {
             engine = new Engine();
+            input = new UserInputHandler(engine.GameState.Controller);
             base.Initialize();
         }
 
@@ -71,6 +74,7 @@ namespace NetherTear.MonoGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            input.HandleUserInput();
             engine.Update();
 
             base.Update(gameTime);

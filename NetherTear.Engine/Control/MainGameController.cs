@@ -3,22 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NetherTear.Framework.GameObjects;
+using NetherTear.Framework.Config;
 
 namespace NetherTear.Framework.Control
 {
     class MainGameController : ControllerBase
     {
+        #region Private Variables
         private Player player;
+        #endregion
+
+        #region Public Variables
+        public MainGameControllerConfig Config { get; set; }
+        #endregion
 
         public MainGameController(Player player)
         {
             this.player = player;
+            Config = new MainGameControllerConfig();
         }
 
         #region Public Methods
-        public void SetPlayerMovementDirection(PlayerAction direction)
+        public override void HandleUserInput(UserInput input)
         {
-            switch(direction)
+            ReadyPlayerForInput();
+            if (input != UserInput.Null)
+            {
+                HandleUserInput(Config[input]);
+            }
+        }
+        #endregion
+
+        #region Private Methods
+        private void HandleUserInput(PlayerAction action)
+        {
+            switch(action)
             {
                 case PlayerAction.Up:
                     StartMovingPlayerUp();
@@ -34,9 +53,13 @@ namespace NetherTear.Framework.Control
                     break;
             }
         }
-        #endregion
 
-        #region Private Methods
+        private void ReadyPlayerForInput()
+        {
+            player.XSpeed = 0;
+            player.YSpeed = 0;
+        }
+
         private void StartMovingPlayerUp()
         {
             player.YSpeed = player.MaxYSpeed * -1;
@@ -57,13 +80,5 @@ namespace NetherTear.Framework.Control
             player.XSpeed = player.MaxXSpeed;
         }
         #endregion
-    }
-
-    public enum PlayerAction
-    {
-        Up,
-        Down,
-        Left,
-        Right
     }
 }

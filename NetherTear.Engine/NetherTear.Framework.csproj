@@ -40,7 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Control\PlayerController.cs" />
+    <Compile Include="Config\ControllerConfigBase.cs" />
+    <Compile Include="Config\MainGameControllerConfig.cs" />
+    <Compile Include="Control\ControllerBase.cs" />
+    <Compile Include="Control\MainGameController.cs" />
     <Compile Include="Engine\Engine.cs" />
     <Compile Include="Engine\GameState.cs" />
     <Compile Include="GameObjects\GameObjectBase.cs" />
@@ -48,7 +51,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Config\" />
     <Folder Include="View\" />
   </ItemGroup>
   <ItemGroup>

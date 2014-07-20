@@ -8,8 +8,8 @@
     <ProjectGuid>{DB23F0FB-B136-4479-91A8-24DB86F6460F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NetherTear</RootNamespace>
-    <AssemblyName>NetherTear</AssemblyName>
+    <RootNamespace>NetherTear.MonoGame</RootNamespace>
+    <AssemblyName>NetherTear.MonoGame</AssemblyName>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -35,6 +35,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="EventHandlers\UserInputHandler.cs" />
     <Compile Include="NetherTearGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
-    <Folder Include="EventHandlers\" />
     <Folder Include="Renderers\" />
   </ItemGroup>
   <ItemGroup>
