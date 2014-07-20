@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Storage;
 using NetherTear.Resources;
 using NetherTear.Framework.Engine;
 using NetherTear.MonoGame.EventHandlers;
+using NetherTear.MonoGame.Renderers;
 #endregion
 
 namespace NetherTear.MonoGame
@@ -20,9 +21,10 @@ namespace NetherTear.MonoGame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D playerImage;
         Engine engine;
+        GameRenderer renderer = new GameRenderer();
         UserInputHandler input;
+        Dictionary<string, Texture2D> textures = new Dictionary<string,Texture2D>();
 
         public NetherTearGame()
             : base()
@@ -40,7 +42,9 @@ namespace NetherTear.MonoGame
         protected override void Initialize()
         {
             engine = new Engine();
+            renderer.GameState = engine.GameState;
             input = new UserInputHandler(engine.GameState.Controller);
+            
             base.Initialize();
         }
 
@@ -52,7 +56,10 @@ namespace NetherTear.MonoGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            playerImage = Content.Load<Texture2D>(engine.GameState.Player.ImagePath);
+            textures.Add("PlayerImage", Content.Load<Texture2D>(engine.GameState.Player.ImagePath));
+
+            renderer.SpriteBatch = spriteBatch;
+            renderer.Textures = textures;
         }
 
         /// <summary>
@@ -86,12 +93,8 @@ namespace NetherTear.MonoGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            spriteBatch.Begin();
-            spriteBatch.Draw(playerImage, new Rectangle(engine.GameState.Player.X, engine.GameState.Player.Y, 25, 25), Color.White);
-            spriteBatch.End();
-
+            GraphicsDevice.Clear(Color.Black);
+            renderer.Draw();
             base.Draw(gameTime);
         }
     }
