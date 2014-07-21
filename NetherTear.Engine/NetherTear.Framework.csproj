@@ -49,6 +49,9 @@
     <Compile Include="Engine\GameState.cs" />
     <Compile Include="GameObjects\GameObjectBase.cs" />
     <Compile Include="GameObjects\Player.cs" />
+    <Compile Include="Maps\CellBase.cs" />
+    <Compile Include="Maps\MapBase.cs" />
+    <Compile Include="Maps\OutdoorCell.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
