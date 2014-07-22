@@ -61,8 +61,8 @@ namespace NetherTear.MonoGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            textures.Add("PlayerImage", Content.Load<Texture2D>(engine.GameState.Player.ImagePath));
-
+            textures.Add("PlayerImage", Content.Load<Texture2D>(ObjectImages.PlayerImagePath));
+            textures.Add("TreeImage", Content.Load<Texture2D>(ObjectImages.TreeImagePath));
             renderer.SpriteBatch = spriteBatch;
             renderer.Textures = textures;
         }

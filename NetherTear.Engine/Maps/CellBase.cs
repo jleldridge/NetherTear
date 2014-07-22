@@ -12,6 +12,8 @@ namespace NetherTear.Framework.Maps
         #endregion
 
         #region Public Variables
+        public static float Width = 16000;
+        public static float Height = 9000;
         /// <summary>
         /// The x coordinate in the parent map's cell array
         /// </summary>

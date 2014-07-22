@@ -5,6 +5,7 @@ using System.Text;
 using NetherTear.Framework.GameObjects;
 using NetherTear.Framework.Control;
 using NetherTear.Framework.Config;
+using NetherTear.Framework.Maps;
 
 namespace NetherTear.Framework.Engine
 {
@@ -14,6 +15,7 @@ namespace NetherTear.Framework.Engine
         public Player Player { get; set; }
         public ControllerBase Controller { get; set; }
         public GraphicsConfig GraphicsConfig { get; set; }
+        public MapBase CurrentMap { get; set; }
         #endregion
 
         #region Constructors

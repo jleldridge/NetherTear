@@ -9,5 +9,6 @@ namespace NetherTear.Resources
     public static class ObjectImages
     {
         public static readonly string PlayerImagePath = "Images/GreenCircle";
+        public static readonly string TreeImagePath = "Images/Tree";
     }
 }
