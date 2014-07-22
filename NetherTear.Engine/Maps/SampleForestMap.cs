@@ -14,7 +14,8 @@ namespace NetherTear.Framework.Maps
             {
                 for (int j = 0; j < HeightInCells; j++)
                 {
-                    Cells[i, j] = new OutdoorCell(i, j);
+                    Cells[j, i] = new OutdoorCell(i, j);
+                    AddObject(new Tree(i * CellBase.Width + 50, j * CellBase.Height + 50));
                 }
             }
         }

@@ -27,7 +27,26 @@ namespace NetherTear.Framework.Maps
         #region Public Methods
         public void AddObject(GameObjectBase obj)
         {
+            int cellX = (int)(obj.X / CellBase.Width);
+            int cellY = (int)(obj.Y / CellBase.Height);
+            if (cellX < WidthInCells && cellY < HeightInCells)
+            {
+                var cell = Cells[cellX, cellY];
+                cell.Objects.Add(obj);
+            }
+        }
 
+        public void AddObject(GameObjectBase obj, float x, float y)
+        {
+            obj.X = x;
+            obj.Y = y;
+            int cellX = (int)(obj.X / CellBase.Width);
+            int cellY = (int)(obj.Y / CellBase.Height);
+            if (cellX < WidthInCells && cellY < HeightInCells)
+            {
+                var cell = Cells[cellX, cellY];
+                cell.Objects.Add(obj);
+            }
         }
         #endregion
     }
