@@ -8,7 +8,14 @@ namespace NetherTear.Resources
 {
     public static class ObjectImages
     {
-        public static readonly string PlayerImagePath = "Images/GreenCircle";
+        // single images
+        public static readonly string PlayerImagePath = "Images/BlueCircle";
         public static readonly string TreeImagePath = "Images/Tree";
+        public static readonly string BackgroundGrassPath = "Images/Grass";
+
+        // tilesets
+        public static readonly string Ground1Path = "TileSets/groundTileset_15pxPerTile_128x128";
+
+        // sprite sheets
     }
 }

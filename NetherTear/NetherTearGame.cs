@@ -65,6 +65,8 @@ namespace NetherTear.MonoGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             textures.Add("Player", Content.Load<Texture2D>(ObjectImages.PlayerImagePath));
             textures.Add("Tree", Content.Load<Texture2D>(ObjectImages.TreeImagePath));
+            textures.Add("Grass", Content.Load<Texture2D>(ObjectImages.BackgroundGrassPath));
+            textures.Add("Grass", Content.Load<Texture2D>(ObjectImages.Ground1Path));
             spriteFonts.Add("Default", Content.Load<SpriteFont>("SpriteFonts/Default"));
             renderer.SpriteBatch = spriteBatch;
             renderer.Textures = textures;

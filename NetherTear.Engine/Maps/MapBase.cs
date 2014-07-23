@@ -43,7 +43,7 @@ namespace NetherTear.Framework.Maps
             int cellY = (int)(obj.Y / CellBase.Height);
             if (cellX < WidthInCells && cellY < HeightInCells)
             {
-                var cell = Cells[cellX, cellY];
+                var cell = Cells[cellY, cellX];
                 cell.Objects.Add(obj);
             }
         }

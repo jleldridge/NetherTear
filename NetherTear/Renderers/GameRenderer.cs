@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using NetherTear.Framework.Engine;
 using NetherTear.Framework.GameObjects;
 using NetherTear.Framework.Config;
+using NetherTear.Framework.Maps;
 
 namespace NetherTear.MonoGame.Renderers
 {
@@ -61,9 +62,13 @@ namespace NetherTear.MonoGame.Renderers
             SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,
                 null, null, null, null, scale);
             
+            // the ordering here is important to determine what gets drawn in
+            // front of what
+            DrawCellBackgrounds();
+
             // temp debug
             DrawPlayerPosition();
-
+            
             DrawPlayer();
             DrawGameObjects();
             SpriteBatch.End();
@@ -81,6 +86,22 @@ namespace NetherTear.MonoGame.Renderers
                 GameState.Player.X, GameState.Player.Y);
             SpriteBatch.DrawString(SpriteFonts["Default"], playerPositionString,
                 new Vector2(5, 5), Color.White);
+        }
+
+        private void DrawCellBackgrounds()
+        {
+            foreach (var cell in GameState.CurrentCells)
+            {
+                DrawCellBackground(cell);
+            }
+        }
+
+        private void DrawCellBackground(CellBase cell)
+        {
+            var cellStartVector = new Vector2(cell.MapXStart, cell.MapYStart);
+            var drawVector = cellStartVector - GetCameraTopLeft();
+
+            SpriteBatch.Draw(Textures[cell.BackgroundTexture], drawVector, Color.White);
         }
 
         private void DrawPlayer()

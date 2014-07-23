@@ -13,6 +13,7 @@ namespace NetherTear.Framework.Maps
         #region Constructors
         public OutdoorCell(int xPos, int yPos) : base(xPos, yPos)
         {
+            this.BackgroundTexture = "Grass";
         }
         #endregion
     }
