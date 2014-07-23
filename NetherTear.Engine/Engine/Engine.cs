@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NetherTear.Framework.GameObjects;
+using NetherTear.Framework.Maps;
 
 namespace NetherTear.Framework.Engine
 {

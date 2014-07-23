@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NetherTear.Framework.Engine;
+using NetherTear.Framework.GameObjects;
 
 namespace NetherTear.Framework.View
 {
@@ -20,10 +21,6 @@ namespace NetherTear.Framework.View
         #endregion
 
         #region Public Methods
-        public void GetCameraBounds(out float leftX, out float rightX, out float topY, out float bottomY)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
     }
 }

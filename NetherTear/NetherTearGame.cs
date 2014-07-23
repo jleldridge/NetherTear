@@ -11,6 +11,7 @@ using NetherTear.Framework.Engine;
 using NetherTear.MonoGame.EventHandlers;
 using NetherTear.MonoGame.Renderers;
 using NetherTear.Framework.Config;
+using NetherTear.Framework.GameObjects;
 #endregion
 
 namespace NetherTear.MonoGame
@@ -26,6 +27,7 @@ namespace NetherTear.MonoGame
         GameRenderer renderer;
         UserInputHandler input;
         Dictionary<string, Texture2D> textures = new Dictionary<string,Texture2D>();
+        Dictionary<string, SpriteFont> spriteFonts = new Dictionary<string, SpriteFont>();
 
         public NetherTearGame()
             : base()
@@ -61,10 +63,12 @@ namespace NetherTear.MonoGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            textures.Add("PlayerImage", Content.Load<Texture2D>(ObjectImages.PlayerImagePath));
-            textures.Add("TreeImage", Content.Load<Texture2D>(ObjectImages.TreeImagePath));
+            textures.Add("Player", Content.Load<Texture2D>(ObjectImages.PlayerImagePath));
+            textures.Add("Tree", Content.Load<Texture2D>(ObjectImages.TreeImagePath));
+            spriteFonts.Add("Default", Content.Load<SpriteFont>("SpriteFonts/Default"));
             renderer.SpriteBatch = spriteBatch;
             renderer.Textures = textures;
+            renderer.SpriteFonts = spriteFonts;
         }
 
         /// <summary>

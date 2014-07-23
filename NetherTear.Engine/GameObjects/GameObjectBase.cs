@@ -16,7 +16,7 @@ namespace NetherTear.Framework.GameObjects
         public float YSpeed { get; set; }
         public float MaxXSpeed { get; set; }
         public float MaxYSpeed { get; set; }
-        public abstract string ImagePath { get; }
+        public abstract string Texture { get; }
         #endregion
 
         public GameObjectBase(float x, float y, float width, float height)

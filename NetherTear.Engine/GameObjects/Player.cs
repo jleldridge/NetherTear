@@ -9,9 +9,9 @@ namespace NetherTear.Framework.GameObjects
 {
     public class Player : GameObjectBase
     {
-        public override string ImagePath
+        public override string Texture
         {
-            get { return ObjectImages.PlayerImagePath; }
+            get { return "Player"; }
         }
 
         public Player(float x, float y) : base(x, y, 40, 40)

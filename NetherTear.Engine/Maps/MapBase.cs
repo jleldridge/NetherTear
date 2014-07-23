@@ -12,7 +12,6 @@ namespace NetherTear.Framework.Maps
         public int WidthInCells { get; set; }
         public int HeightInCells { get; set; }
         public CellBase [,] Cells { get; set; }
-        public CellBase CurrentCell { get; set; }
         #endregion
 
         #region Constructors
@@ -20,7 +19,7 @@ namespace NetherTear.Framework.Maps
         {
             this.WidthInCells = widthInCells;
             this.HeightInCells = heightInCells;
-            this.Cells = new CellBase[WidthInCells, HeightInCells];
+            this.Cells = new CellBase[HeightInCells, WidthInCells];
         }
         #endregion
 
@@ -31,7 +30,7 @@ namespace NetherTear.Framework.Maps
             int cellY = (int)(obj.Y / CellBase.Height);
             if (cellX < WidthInCells && cellY < HeightInCells)
             {
-                var cell = Cells[cellX, cellY];
+                var cell = Cells[cellY, cellX];
                 cell.Objects.Add(obj);
             }
         }
@@ -47,6 +46,12 @@ namespace NetherTear.Framework.Maps
                 var cell = Cells[cellX, cellY];
                 cell.Objects.Add(obj);
             }
+        }
+
+        public bool ContainsCellIndex(int row, int col)
+        {
+            return row >= 0 && row < HeightInCells &&
+                col >= 0 && col < WidthInCells;
         }
         #endregion
     }

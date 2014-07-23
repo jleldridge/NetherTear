@@ -21,6 +21,9 @@ namespace NetherTear.MonoGame.Renderers
         public GraphicsDeviceManager Graphics { get; set; }
         public SpriteBatch SpriteBatch { get; set; }
         public Dictionary<string, Texture2D> Textures { get; set; }
+        public Dictionary<string, SpriteFont> SpriteFonts { get; set; }
+        public float CenterX { get { return GraphicsConfig.DefaultWidth / 2.0f; } }
+        public float CenterY { get { return GraphicsConfig.DefaultHeight / 2.0f; } }
         #endregion
 
         #region Constructors
@@ -57,17 +60,72 @@ namespace NetherTear.MonoGame.Renderers
         {
             SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,
                 null, null, null, null, scale);
+            
+            // temp debug
+            DrawPlayerPosition();
+
             DrawPlayer();
+            DrawGameObjects();
             SpriteBatch.End();
         }
         #endregion
 
         #region Private Methods
+        /// <summary>
+        /// Draws the player's current x and y position at the top left
+        /// of the screen for debugging purposes.
+        /// </summary>
+        private void DrawPlayerPosition()
+        {
+            var playerPositionString = string.Format("Player X: {0}\nPlayer Y: {1}",
+                GameState.Player.X, GameState.Player.Y);
+            SpriteBatch.DrawString(SpriteFonts["Default"], playerPositionString,
+                new Vector2(5, 5), Color.White);
+        }
+
         private void DrawPlayer()
         {
             Player player = GameState.Player;
-            SpriteBatch.Draw(Textures["PlayerImage"], GetObjectPos(player), 
+            float playerDrawX = CenterX - (player.Width / 2);
+            float playerDrawY = CenterY - (player.Height / 2);
+            
+            SpriteBatch.Draw(Textures[player.Texture], 
+                new Vector2(playerDrawX, playerDrawY), 
                 Color.White);
+        }
+
+        private void DrawGameObjects()
+        {
+            var objects = new List<GameObjectBase>();
+
+            foreach (var cell in GameState.CurrentCells)
+            {
+                objects.AddRange(cell.Objects);
+            }
+
+            foreach (var obj in objects)
+            {
+                DrawGameObject(obj);
+            }
+        }
+
+        private void DrawGameObject(GameObjectBase obj)
+        {
+            var drawVector = GetObjectPos(obj) - GetCameraTopLeft();
+            
+            SpriteBatch.Draw(Textures[obj.Texture], drawVector, 
+                Color.White);
+        }
+
+        private Vector2 GetCameraTopLeft()
+        {
+            var player = GameState.Player;
+            float x = (player.X + (player.Width / 2.0f)) -
+                (GraphicsConfig.DefaultWidth / 2.0f);
+            float y = (player.Y + (player.Width / 2.0f)) -
+                (GraphicsConfig.DefaultHeight / 2.0f);
+
+            return new Vector2(x, y);
         }
 
         private Vector2 GetObjectPos(GameObjectBase obj)

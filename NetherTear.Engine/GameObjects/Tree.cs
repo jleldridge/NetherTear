@@ -9,17 +9,17 @@ namespace NetherTear.Framework.GameObjects
     class Tree : GameObjectBase
     {
         #region Private Variables
-        public override string ImagePath
-        {
-            get { return ObjectImages.TreeImagePath; }
-        }
         #endregion
 
         #region Public Variables
+        public override string Texture
+        {
+            get { return "Tree"; }
+        }
         #endregion
 
         #region Constructors
-        public Tree(float x, float y) : base(x, y, 40, 40) 
+        public Tree(float x, float y) : base(x, y, 80, 80) 
         {
         }
         #endregion

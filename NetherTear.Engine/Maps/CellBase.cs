@@ -12,8 +12,8 @@ namespace NetherTear.Framework.Maps
         #endregion
 
         #region Public Variables
-        public static float Width = 16000;
-        public static float Height = 9000;
+        public static float Width = 1600;
+        public static float Height = 900;
         /// <summary>
         /// The x coordinate in the parent map's cell array
         /// </summary>
@@ -23,10 +23,6 @@ namespace NetherTear.Framework.Maps
         /// </summary>
         public int YPos { get; set; }
         public List<GameObjectBase> Objects { get; set; }
-        public abstract float StartX { get; }
-        public abstract float StartY { get; }
-        public abstract float EndX { get; }
-        public abstract float EndY { get; }
         #endregion
 
         #region Constructors
@@ -34,6 +30,7 @@ namespace NetherTear.Framework.Maps
         {
             this.XPos = xPos;
             this.YPos = yPos;
+            Objects = new List<GameObjectBase>();
         }
         #endregion
     }
