@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NetherTear.Framework.View;
 
 namespace NetherTear.Framework.Maps
 {
@@ -11,9 +12,8 @@ namespace NetherTear.Framework.Maps
         #endregion
 
         #region Constructors
-        public OutdoorCell(int xPos, int yPos) : base(xPos, yPos)
+        public OutdoorCell(int xPos, int yPos, Sprite[,] sprites) : base(xPos, yPos, sprites)
         {
-            this.BackgroundTexture = "Grass";
         }
         #endregion
     }

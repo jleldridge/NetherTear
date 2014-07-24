@@ -8,6 +8,7 @@ using NetherTear.Framework.Engine;
 using NetherTear.Framework.GameObjects;
 using NetherTear.Framework.Config;
 using NetherTear.Framework.Maps;
+using NetherTear.Framework.Util;
 
 namespace NetherTear.MonoGame.Renderers
 {
@@ -99,9 +100,24 @@ namespace NetherTear.MonoGame.Renderers
         private void DrawCellBackground(CellBase cell)
         {
             var cellStartVector = new Vector2(cell.MapXStart, cell.MapYStart);
-            var drawVector = cellStartVector - GetCameraTopLeft();
+            for (int i = 0; i <= cell.Tiles.GetUpperBound(1); i++)
+            {
+                for (int j = 0; j <= cell.Tiles.GetUpperBound(0); j++)
+                {
+                    var tile = cell.Tiles[j, i];
+                    float tileX = (i * tile.Width) + cellStartVector.X;
+                    float tileY = (j * tile.Height) + cellStartVector.Y;
+                    var tileVector = new Vector2(tileX, tileY);
+                    var drawVector = tileVector - GetCameraTopLeft();
+                    var rect = tile.GetCurrentTextureBounds();
+                    var tileRect = new Microsoft.Xna.Framework.Rectangle(
+                        (int)rect.X, (int)rect.Y, (int)rect.Width, 
+                        (int)rect.Height);
 
-            SpriteBatch.Draw(Textures[cell.BackgroundTexture], drawVector, Color.White);
+                    SpriteBatch.Draw(Textures[tile.SpriteSheet.SourceTexture], 
+                        tileVector, tileRect, Color.White);
+                }
+            }
         }
 
         private void DrawPlayer()

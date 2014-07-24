@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NetherTear.Framework.GameObjects;
+using NetherTear.Framework.View;
 
 namespace NetherTear.Framework.Maps
 {
@@ -14,7 +15,7 @@ namespace NetherTear.Framework.Maps
         #region Public Variables
         public static float Width = 1600;
         public static float Height = 900;
-        public string BackgroundTexture { get; set; }
+        public Sprite[,] Tiles { get; set; }
         /// <summary>
         /// The x coordinate in the parent map's cell array
         /// </summary>
@@ -42,10 +43,11 @@ namespace NetherTear.Framework.Maps
         #endregion
 
         #region Constructors
-        public CellBase(int xPos, int yPos)
+        public CellBase(int xPos, int yPos, Sprite[,] tiles)
         {
             this.XPos = xPos;
             this.YPos = yPos;
+            this.Tiles = tiles;
             Objects = new List<GameObjectBase>();
         }
         #endregion

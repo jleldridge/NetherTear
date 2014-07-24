@@ -55,13 +55,11 @@
     <Compile Include="Maps\OutdoorCell.cs" />
     <Compile Include="Maps\SampleForestMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\MapCamera.cs" />
-    <Compile Include="View\SpriteBase.cs" />
+    <Compile Include="Util\Rectangle.cs" />
+    <Compile Include="View\Sprite.cs" />
     <Compile Include="View\SpriteSheet.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Util\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\NetherTear.Resources\NetherTear.Resources.csproj">
       <Project>{c9b67ca6-dd5f-42a3-8eec-8066ede2c392}</Project>

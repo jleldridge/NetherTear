@@ -15,7 +15,7 @@ namespace NetherTear.Resources
 
         // tilesets
         public static readonly string Ground1Path = "TileSets/groundTileset_15pxPerTile_128x128";
-
+        public static readonly string GrassTile1 = "TileSets/Grass_25x25_SingleTile";
         // sprite sheets
     }
 }

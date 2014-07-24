@@ -2,16 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NetherTear.Framework.Util;
 
 namespace NetherTear.Framework.View
 {
-    class SpriteSheet
+    public class SpriteSheet
     {
         #region Public Variables
-        public string SourceImagePath { get; set; }
-        public int SourceImageWidth { get; set; }
-        public int SourceImageHeight { get; set; }
-        //public Dictionary<string, > Textures { get; set; } 
+        public string SourceTexture { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public Dictionary<string, Rectangle> TextureRegions { get; set; } 
+        #endregion
+
+        #region Constructors
+        public SpriteSheet(string sourceImagePath, int sourceImageWidth,
+            int sourceImageHeight)
+        {
+            this.SourceTexture = sourceImagePath;
+            this.Width = sourceImageWidth;
+            this.Height = sourceImageHeight;
+            TextureRegions = new Dictionary<string, Rectangle>();
+        }
+        #endregion
+
+        #region Public Methods
+        public void DefineRegion(string regionName, float x, float y, 
+            float width, float height)
+        {
+            TextureRegions.Add(regionName, new Rectangle(x, y, width, height));
+        }
+
+        public void RemoveRegion(string regionName)
+        {
+            TextureRegions.Remove(regionName);
+        }
         #endregion
     }
 }
